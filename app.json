@@ -1,0 +1,18 @@
+{
+  "playlistTitle": "My Playlist",
+  "baseUrl": "http://192.168.0.142:8001/Downloads/complete/",
+  "mediaFolder": "/Users/paso/Library/CloudStorage/ShellFish/192.168.0.142/server/Downloads/complete",
+  "outputFileName": "playlist.xspf",
+  "extensions": [
+    ".mp4",
+    ".mkv",
+    ".avi",
+    ".flv",
+    ".mov",
+    ".wmv",
+    ".vob",
+    ".mpg",
+    ".3gp",
+    ".m4v"
+  ]
+}
