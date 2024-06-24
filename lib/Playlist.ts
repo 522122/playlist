@@ -17,7 +17,6 @@ class Track {
   }
 
   json({ baseUrl, mediaFolder }: { baseUrl: string; mediaFolder: string }) {
-    new URL(encodeURI(relative(mediaFolder, this.location)), baseUrl);
     return {
       location: new URL(
         encodeURI(relative(mediaFolder, this.location)),
