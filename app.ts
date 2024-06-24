@@ -5,12 +5,13 @@ import Playlist from "./lib/Playlist.ts";
 import { type AppConfig } from "./types.ts";
 
 const main = async () => {
+  console.time("Time taken to generate playlist");
 
-    console.time("Time taken to generate playlist")
-
-    const { default: config } = (await import("./app.json", { with: { type: "json" } }))  as {
+  const { default: config } = (await import("./app.json", {
+    with: { type: "json" },
+  })) as {
     default: AppConfig;
-  }
+  };
 
   const playlist = new Playlist({
     title: config.playlistTitle,
@@ -20,18 +21,17 @@ const main = async () => {
 
   const extensionsSet = new Set(config.extensions);
 
-  (await recursiveReaddir(config.mediaFolder))
-    .filter((file) => extensionsSet.has(extname(file)))
-    .forEach((file) => {
-      playlist.track({
-        location: file,
-      });
+  (await recursiveReaddir(config.mediaFolder)).forEach((file) => {
+    if (!extensionsSet.has(extname(file))) return;
+    playlist.track({
+      location: file,
     });
+  });
 
   await Deno.writeTextFile(config.outputFileName, playlist.toXML());
 
   console.log(`${playlist.length} tracks added to ${config.outputFileName}`);
-  console.timeEnd("Time taken to generate playlist")
+  console.timeEnd("Time taken to generate playlist");
 };
 
 main();
